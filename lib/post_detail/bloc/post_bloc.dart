@@ -23,21 +23,18 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   ) async* {
     try {
       if (event is GetAllPosts) {
-        List<PostScreenModel> posts =
-            await PostScreenRepo().getSavedPostDetails();
+        List<PostScreenModel> posts = await repository.fetchSavedPosts();
         if (posts != null && posts.isNotEmpty) {
-          print('Details fetch from shared pref for post detail screen');
           yield PostLoaded(posts);
         } else {
-          List<PostScreenModel> posScreenModels =
+          List<PostScreenModel> postScreenModels =
               await repository.fetchAllPost();
-          PostScreenRepo().savePostList(posScreenModels);
-          print('post screen detail send to save');
-          yield PostLoaded(posScreenModels);
+          repository.savePosts(postScreenModels);
+          yield PostLoaded(postScreenModels);
         }
       } else if (event is GetuserPosts) {
         List<Post> posts =
-            await PostScreenRepo().fetchAllUserPost(userId: event.userId);
+            await repository.fetchAllUserPost(userId: event.userId);
         yield UserPostLoaded(posts);
       }
     } on PostError {

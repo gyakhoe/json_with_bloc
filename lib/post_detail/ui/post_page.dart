@@ -17,6 +17,7 @@ class PostPage extends StatelessWidget {
         child: BlocBuilder<PostBloc, PostState>(
           builder: (context, state) {
             if (state is PostLoading) {
+              context.bloc<PostBloc>().add(GetAllPosts());
               return _buildLoadingIndicator(context, state);
             } else if (state is PostLoaded) {
               return _postDetailList(posts: state.posts);
@@ -45,7 +46,6 @@ class PostPage extends StatelessWidget {
   }
 
   Widget _buildLoadingIndicator(BuildContext context, PostState state) {
-    context.bloc<PostBloc>()..add(GetAllPosts());
     return Center(child: CircularProgressIndicator());
   }
 }

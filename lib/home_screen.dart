@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:json_with_bloc/album_detail/layout/album_page.dart';
 import 'package:json_with_bloc/post_detail/ui/post_page.dart';
+import 'package:json_with_bloc/todo_detail/layout/todo_page.dart';
 import 'package:json_with_bloc/user_detail/layouts/user_page.dart';
 import 'common/application_icon.dart';
 
@@ -15,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var pages = [
     PostPage(),
     AlbumPage(),
+    TodoPage(),
     UserPage(),
   ];
   var pageIndex = 0;
@@ -73,6 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.photo_album),
             title: Text('Album'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.check_box),
+            title: Text('Todo'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

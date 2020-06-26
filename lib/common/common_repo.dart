@@ -32,7 +32,7 @@ class CommonRepo {
     }
   }
 
-  void saveObjects({
+  static void saveObjects({
     @required String key,
     @required List<dynamic> objects,
   }) async {
@@ -41,7 +41,7 @@ class CommonRepo {
     prefs.setString(key, postJsonString);
   }
 
-  Future<String> loadSavedJsonString({@required String key}) async {
+  static Future<String> loadSavedJsonString({@required String key}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(key);
   }

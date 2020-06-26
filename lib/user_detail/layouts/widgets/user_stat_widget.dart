@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:json_with_bloc/album_detail/bloc/album_bloc.dart';
+import 'package:json_with_bloc/common/widgets/common_widgets.dart';
 import 'package:json_with_bloc/post_detail/bloc/post_bloc.dart';
 import 'package:json_with_bloc/user_detail/layouts/user_album_screen.dart';
 import 'package:json_with_bloc/user_detail/layouts/user_post_screen.dart';
@@ -27,7 +28,7 @@ class UserStatWidget extends StatelessWidget {
       builder: (context, state) {
         if (state is PostLoading) {
           context.bloc<PostBloc>().add(GetuserPosts(userId));
-          return _buildLoadingIndicator();
+          return CommonWidgets.buildLoadingIndicator();
         } else if (state is UserPostLoaded) {
           return _buildCard(
               context: context,
@@ -36,7 +37,7 @@ class UserStatWidget extends StatelessWidget {
                 posts: state.posts,
               ));
         } else {
-          return _buildUndefinedState();
+          return CommonWidgets.buildUndefinedState();
         }
       },
     );
@@ -47,7 +48,7 @@ class UserStatWidget extends StatelessWidget {
       builder: (context, state) {
         if (state is AlbumLoading) {
           context.bloc<AlbumBloc>().add(GetUserAlbum(userId));
-          return _buildLoadingIndicator();
+          return CommonWidgets.buildLoadingIndicator();
         } else if (state is UserAlbumLoaded) {
           return _buildCard(
               context: context,
@@ -56,7 +57,7 @@ class UserStatWidget extends StatelessWidget {
                 albums: state.albums,
               ));
         } else {
-          return _buildUndefinedState();
+          return CommonWidgets.buildUndefinedState();
         }
       },
     );
@@ -95,17 +96,5 @@ class UserStatWidget extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _buildLoadingIndicator() {
-    return Expanded(child: Center(child: CircularProgressIndicator()));
-  }
-
-  Widget _buildUndefinedState() {
-    return Center(
-        child: Icon(
-      Icons.close,
-      size: 50,
-    ));
   }
 }
