@@ -30,8 +30,8 @@ class CommentRepo {
   }
 
   Future<List<Comment>> fetchSavedPostComment(int postId) async {
-    String savedJsonString =
-        await CommonRepo().loadSavedJsonString(key: 'comment_$postId');
+    String savedJsonString = await CommonRepo.loadSavedJsonString(
+        key: '${Strings.prefKeyComments}_$postId');
     return savedJsonString != null
         ? (json.decode(savedJsonString) as List)
             .map((e) => Comment.fromJson(e))
@@ -41,6 +41,7 @@ class CommentRepo {
 
   void savePostComment(
       {@required int postId, @required List<Comment> comments}) {
-    CommonRepo().saveObjects(key: 'comment_$postId', objects: comments);
+    CommonRepo.saveObjects(
+        key: '${Strings.prefKeyComments}_$postId', objects: comments);
   }
 }

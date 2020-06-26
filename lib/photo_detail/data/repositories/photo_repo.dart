@@ -37,12 +37,13 @@ class PhotoRepo {
     @required List<Photo> photos,
     @required int albumId,
   }) {
-    CommonRepo().saveObjects(key: 'photos_$albumId', objects: photos);
+    CommonRepo.saveObjects(
+        key: '${Strings.prefKeyPhotos}_$albumId', objects: photos);
   }
 
   Future<List<Photo>> fetchSavedAlbumPhotos({@required int albumId}) async {
-    String savedJsonString =
-        await CommonRepo().loadSavedJsonString(key: 'photos_$albumId');
+    String savedJsonString = await CommonRepo.loadSavedJsonString(
+        key: '${Strings.prefKeyPhotos}_$albumId');
     return savedJsonString != null
         ? (json.decode(savedJsonString) as List)
             .map((e) => Photo.fromJson(e))

@@ -12,6 +12,13 @@ class Strings {
   static final String postsApiUrl =
       'http://jsonplaceholder.typicode.com/posts/';
 
+  static final String prefKeyUsers = 'users';
+  static final String prefKeyPosts = 'posts';
+  static final String prefKeyComments = 'comments';
+  static final String prefKeyAlbums = 'albums';
+  static final String prefKeyPhotos = 'photos';
+  static final String prefKeyTodos = 'todos';
+
   static final List<String> userProfileImages = [
     'https://images.unsplash.com/photo-1521117660421-ce701ed42966?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
     'https://images.unsplash.com/photo-1534339480783-6816b68be29c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
