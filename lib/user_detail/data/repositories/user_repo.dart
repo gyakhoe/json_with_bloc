@@ -17,4 +17,6 @@ class UserRepo {
     User user = User.fromMap(jsonResponse);
     return user;
   }
+
+  void saveUserDetail() async {}
 }

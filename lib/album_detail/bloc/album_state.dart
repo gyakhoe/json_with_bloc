@@ -23,3 +23,10 @@ class AlbumLoaded extends AlbumState {
   @override
   List<Object> get props => [];
 }
+
+class UserAlbumLoaded extends AlbumState {
+  final List<Album> albums;
+  UserAlbumLoaded({@required this.albums});
+  @override
+  List<Object> get props => [];
+}

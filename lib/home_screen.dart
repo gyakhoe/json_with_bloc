@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:json_with_bloc/album_detail/bloc/album_bloc.dart';
-import 'package:json_with_bloc/album_detail/data/repositories/album_repo.dart';
 import 'package:json_with_bloc/album_detail/layout/album_page.dart';
-import 'package:json_with_bloc/post_detail/bloc/post_bloc.dart';
-import 'package:json_with_bloc/post_detail/data/repositories/post_detail_repo.dart';
 import 'package:json_with_bloc/post_detail/ui/post_page.dart';
-
+import 'package:json_with_bloc/user_detail/layouts/user_page.dart';
 import 'common/application_icon.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,14 +13,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var pages = [
-    BlocProvider(
-      create: (context) => PostBloc(PostScreenRepo()),
-      child: PostPage(),
-    ),
-    BlocProvider(
-        create: (context) => AlbumBloc(albumRepo: AlbumRepo()),
-        child: AlbumPage()),
-    Text('Todo page'),
+    PostPage(),
+    AlbumPage(),
+    UserPage(),
   ];
   var pageIndex = 0;
   @override

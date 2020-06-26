@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:json_with_bloc/album_detail/data/model/album_screen_model.dart';
+import 'package:json_with_bloc/photo_detail/bloc/photo_bloc.dart';
+import 'package:json_with_bloc/photo_detail/data/repositories/photo_repo.dart';
+import 'package:json_with_bloc/photo_detail/layout/photo_screen.dart';
 
 class AlbumWidget extends StatelessWidget {
   final AlbumScreenModel albumScreenModel;
@@ -12,16 +16,17 @@ class AlbumWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => FutureProvider(
-        //       create: (context) => PhotoScreenProvider()
-        //           .fetchAllPhotoOfAlbum(albumId: albumScreenModel.album.id),
-        //       child: PhotoScreen(album: albumScreenModel.album),
-        //     ),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BlocProvider(
+              create: (context) => PhotoBloc(PhotoRepo()),
+              child: PhotoScreen(
+                album: albumScreenModel.album,
+              ),
+            ),
+          ),
+        );
       },
       child: Container(
         padding: EdgeInsets.all(5),

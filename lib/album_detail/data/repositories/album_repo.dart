@@ -7,7 +7,7 @@ import 'package:json_with_bloc/common/strings.dart';
 import 'package:json_with_bloc/photo_detail/data/models/photo.dart';
 import 'package:json_with_bloc/photo_detail/data/repositories/photo_repo.dart';
 import 'package:json_with_bloc/user_detail/data/model/user.dart';
-import 'package:json_with_bloc/user_detail/data/repo/user_repo.dart';
+import 'package:json_with_bloc/user_detail/data/repositories/user_repo.dart';
 
 class AlbumRepo {
   Future<List<Album>> fetchAllAlbums() async {

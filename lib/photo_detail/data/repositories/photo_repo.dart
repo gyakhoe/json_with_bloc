@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:json_with_bloc/common/common_repo.dart';
 import 'package:json_with_bloc/common/strings.dart';
 import 'package:json_with_bloc/photo_detail/data/models/photo.dart';
@@ -28,5 +31,22 @@ class PhotoRepo {
     var jsonResponse = await CommonRepo.makeHttpRequest(url: url);
     Photo photo = Photo.fromMap(jsonResponse);
     return photo;
+  }
+
+  void saveAlbumPhotoDetails({
+    @required List<Photo> photos,
+    @required int albumId,
+  }) {
+    CommonRepo().saveObjects(key: 'photos_$albumId', objects: photos);
+  }
+
+  Future<List<Photo>> fetchSavedAlbumPhotos({@required int albumId}) async {
+    String savedJsonString =
+        await CommonRepo().loadSavedJsonString(key: 'photos_$albumId');
+    return savedJsonString != null
+        ? (json.decode(savedJsonString) as List)
+            .map((e) => Photo.fromJson(e))
+            .toList()
+        : [];
   }
 }

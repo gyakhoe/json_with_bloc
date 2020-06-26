@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:json_with_bloc/album_detail/bloc/album_bloc.dart';
 import 'package:json_with_bloc/album_detail/data/model/album_screen_model.dart';
+import 'package:json_with_bloc/album_detail/data/repositories/album_repo.dart';
 import 'package:json_with_bloc/album_detail/layout/widgets/album_widget.dart';
 import 'package:json_with_bloc/common/network_error.dart';
 
@@ -10,20 +11,27 @@ class AlbumPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AlbumBloc, AlbumState>(
-      builder: (context, state) {
-        try {
-          if (state is AlbumLoading) {
-            return _buildLoadingWidget(context);
-          } else if (state is AlbumLoaded) {
-            return _buildAlubmGridView(albums: state.albums);
-          } else {
-            return _buildErrorWidget();
-          }
-        } on NetworkError {
-          return _buildErrorWidget();
-        }
-      },
+    return BlocProvider(
+      create: (context) => AlbumBloc(albumRepo: AlbumRepo()),
+      child: Container(
+        height: double.infinity,
+        width: double.infinity,
+        child: BlocBuilder<AlbumBloc, AlbumState>(
+          builder: (context, state) {
+            try {
+              if (state is AlbumLoading) {
+                return _buildLoadingWidget(context);
+              } else if (state is AlbumLoaded) {
+                return _buildAlubmGridView(albums: state.albums);
+              } else {
+                return _buildErrorWidget();
+              }
+            } on NetworkError {
+              return _buildErrorWidget();
+            }
+          },
+        ),
+      ),
     );
   }
 

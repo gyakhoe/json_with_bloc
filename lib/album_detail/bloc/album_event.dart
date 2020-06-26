@@ -9,3 +9,10 @@ class GetAllAlbums extends AlbumEvent {
   @override
   List<Object> get props => [];
 }
+
+class GetUserAlbum extends AlbumEvent {
+  final int userId;
+  GetUserAlbum(this.userId);
+  @override
+  List<Object> get props => [];
+}

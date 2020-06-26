@@ -1,8 +1,8 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:json_with_bloc/album_detail/data/model/album.dart';
 import 'package:json_with_bloc/album_detail/data/model/album_screen_model.dart';
 import 'package:json_with_bloc/album_detail/data/repositories/album_repo.dart';
 import 'package:json_with_bloc/common/network_error.dart';
@@ -33,6 +33,10 @@ class AlbumBloc extends Bloc<AlbumEvent, AlbumState> {
           albumRepo.saveAlbumScreenDetails(albums);
           yield AlbumLoaded(albums: albums);
         }
+      } else if (event is GetUserAlbum) {
+        List<Album> albums =
+            await albumRepo.fetchUserAlbums(userId: event.userId);
+        yield UserAlbumLoaded(albums: albums);
       }
     } on NetworkError {
       yield AlbumError('Failed to load Album');
