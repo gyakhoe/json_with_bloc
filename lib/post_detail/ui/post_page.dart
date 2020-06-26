@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:json_with_bloc/post_detail/bloc/post_bloc.dart';
 import 'package:json_with_bloc/post_detail/data/models/post_screen_model.dart';
+import 'package:json_with_bloc/post_detail/data/repositories/post_detail_repo.dart';
 
 import 'widgets/post_widget.dart';
 
@@ -10,18 +11,23 @@ class PostPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PostBloc, PostState>(
-      builder: (context, state) {
-        if (state is PostLoading) {
-          return _buildLoadingIndicator(context, state);
-        } else if (state is PostLoaded) {
-          return _postDetailList(posts: state.posts);
-        } else {
-          return Center(
-              child: Text(
-                  'Uh! Oh! Please try closing and opening applicatin again.'));
-        }
-      },
+    return BlocProvider(
+      create: (context) => PostBloc(PostScreenRepo()),
+      child: Container(
+        child: BlocBuilder<PostBloc, PostState>(
+          builder: (context, state) {
+            if (state is PostLoading) {
+              return _buildLoadingIndicator(context, state);
+            } else if (state is PostLoaded) {
+              return _postDetailList(posts: state.posts);
+            } else {
+              return Center(
+                  child: Text(
+                      'Uh! Oh! Please try closing and opening applicatin again.'));
+            }
+          },
+        ),
+      ),
     );
   }
 

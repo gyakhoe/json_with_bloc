@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:json_with_bloc/post_detail/bloc/post_bloc.dart';
-import 'package:json_with_bloc/post_detail/data/repositories/post_detail_repo.dart';
+import 'package:json_with_bloc/album_detail/layout/album_page.dart';
 import 'package:json_with_bloc/post_detail/ui/post_page.dart';
-
+import 'package:json_with_bloc/user_detail/layouts/user_page.dart';
 import 'common/application_icon.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,12 +13,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var pages = [
-    BlocProvider(
-      create: (context) => PostBloc(PostScreenRepo()),
-      child: PostPage(),
-    ),
-    Text('Album Detail'),
-    Text('Todo page'),
+    PostPage(),
+    AlbumPage(),
+    UserPage(),
   ];
   var pageIndex = 0;
   @override
@@ -33,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.help),
             onPressed: () => showAboutDialog(
                 context: context,
-                applicationName: 'Provider With JSON',
+                applicationName: 'JsonPlaceHolder with Bloc',
                 applicationIcon: ApplicationIcon(height: 80, width: 80),
                 children: [
                   Text(

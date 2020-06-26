@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:json_with_bloc/common/strings.dart';
 import 'package:json_with_bloc/post_detail/data/models/post.dart';
 import 'package:json_with_bloc/post_detail/data/models/post_screen_model.dart';
 import 'package:json_with_bloc/post_detail/data/repositories/post_repo.dart';
 import 'package:json_with_bloc/user_detail/data/model/user.dart';
-import 'package:json_with_bloc/user_detail/data/repo/user_repo.dart';
+import 'package:json_with_bloc/user_detail/data/repositories/user_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class PostDetailRepo {
@@ -47,5 +48,11 @@ class PostScreenRepo implements PostDetailRepo {
       return posts;
     }
     return null;
+  }
+
+  Future<List<Post>> fetchAllUserPost({@required int userId}) async {
+    PostRepo postRepo = PostRepo();
+    List<Post> posts = await postRepo.fetchUserPost(userId: userId);
+    return posts;
   }
 }

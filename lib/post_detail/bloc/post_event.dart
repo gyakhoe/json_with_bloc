@@ -9,3 +9,11 @@ class GetAllPosts extends PostEvent {
   @override
   List<Object> get props => [];
 }
+
+class GetuserPosts extends PostEvent {
+  final int userId;
+
+  GetuserPosts(this.userId);
+  @override
+  List<Object> get props => [userId];
+}

@@ -24,3 +24,10 @@ class PostError extends PostState {
   @override
   List<Object> get props => [message];
 }
+
+class UserPostLoaded extends PostState {
+  final List<Post> posts;
+  const UserPostLoaded(this.posts);
+  @override
+  List<Object> get props => [posts];
+}
