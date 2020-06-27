@@ -66,6 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
             pageIndex = index;
           });
         },
+        selectedItemColor: Theme.of(context).accentColor,
+        unselectedItemColor: Theme.of(context).primaryColor,
         currentIndex: pageIndex,
         items: [
           BottomNavigationBarItem(

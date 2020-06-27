@@ -13,7 +13,7 @@ abstract class TodoScreenRepo {
   Future<List<TodoScreenModel>> fetchAllTodos();
   Future<List<TodoScreenModel>> fetchAllUserTodos({@required int userId});
 
-  void saveScreenTodos(List<TodoScreenModel> todos);
+  void saveScreenTodos({List<TodoScreenModel> todos});
   Future<List<TodoScreenModel>> fetchSavedScreenTodos();
 
   Future<List<TodoScreenModel>> fetchSavedUserScreenTodos({
@@ -81,7 +81,7 @@ class TodoScreenRepoImpl implements TodoScreenRepo {
   }
 
   @override
-  void saveScreenTodos(List<TodoScreenModel> todos) {
+  void saveScreenTodos({List<TodoScreenModel> todos}) {
     CommonRepo.saveObjects(key: Strings.prefKeyTodos, objects: todos);
   }
 

@@ -24,8 +24,16 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   ) async* {
     try {
       if (event is GetAllTodos) {
-        List<TodoScreenModel> todos = await repository.fetchAllTodos();
-        yield TodoLoaded(todos: todos);
+        List<TodoScreenModel> todos = await repository.fetchSavedScreenTodos();
+        if (todos.isNotEmpty) {
+          print('loading saved todos');
+          yield TodoLoaded(todos: todos);
+        } else {
+          List<TodoScreenModel> todos = await repository.fetchAllTodos();
+          repository.saveScreenTodos(todos: todos);
+          print('saving fetch todos');
+          yield TodoLoaded(todos: todos);
+        }
       } else if (event is GetUserTodos) {
         List<TodoScreenModel> todos =
             await repository.fetchAllUserTodos(userId: event.userId);
