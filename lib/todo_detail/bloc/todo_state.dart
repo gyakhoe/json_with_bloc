@@ -25,3 +25,17 @@ class TodoLoadError extends TodoState {
   @override
   List<Object> get props => [errorMessage];
 }
+
+class TodoCompeleted extends TodoState {
+  final Todo todo;
+  TodoCompeleted({@required this.todo});
+  @override
+  List<Object> get props => [todo];
+}
+
+class TodoIncompleted extends TodoState {
+  final Todo todo;
+  TodoIncompleted({@required this.todo});
+  @override
+  List<Object> get props => [todo];
+}

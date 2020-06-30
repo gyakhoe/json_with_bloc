@@ -15,3 +15,17 @@ class GetUserTodos extends TodoEvent {
   @override
   List<Object> get props => [userId];
 }
+
+class CompleteTodo extends TodoEvent {
+  final Todo todo;
+  CompleteTodo({@required this.todo});
+  @override
+  List<Object> get props => [todo];
+}
+
+class IncompleteTodo extends TodoEvent {
+  final Todo todo;
+  IncompleteTodo({@required this.todo});
+  @override
+  List<Object> get props => [todo];
+}

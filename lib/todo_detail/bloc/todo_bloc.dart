@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_with_bloc/common/network_error.dart';
+import 'package:json_with_bloc/todo_detail/data/model/todo.dart';
 import 'package:json_with_bloc/todo_detail/data/model/todo_screen_model.dart';
 import 'package:json_with_bloc/todo_detail/data/repositories/todo_screen_repo.dart';
 
@@ -37,6 +38,14 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       } else if (event is GetUserTodos) {
         List<TodoScreenModel> todos =
             await repository.fetchAllUserTodos(userId: event.userId);
+        yield TodoLoaded(todos: todos);
+      } else if (event is CompleteTodo) {
+        List<TodoScreenModel> todos =
+            await repository.completeTodo(todo: event.todo);
+        yield TodoLoaded(todos: todos);
+      } else if (event is IncompleteTodo) {
+        List<TodoScreenModel> todos =
+            await repository.incompleteTodo(todo: event.todo);
         yield TodoLoaded(todos: todos);
       } else {
         yield TodoLoadError('Undefined event occured.');

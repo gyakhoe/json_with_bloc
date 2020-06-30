@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:json_with_bloc/common/common_repo.dart';
 import 'package:json_with_bloc/common/strings.dart';
+import 'package:json_with_bloc/todo_detail/bloc/todo_bloc.dart';
 import 'package:json_with_bloc/todo_detail/data/model/todo.dart';
 import 'package:json_with_bloc/todo_detail/data/model/todo_screen_model.dart';
 import 'package:json_with_bloc/todo_detail/data/repositories/todo_api_repo.dart';
@@ -23,6 +24,9 @@ abstract class TodoScreenRepo {
     @required List<TodoScreenModel> todos,
     @required int userId,
   });
+
+  Future<List<TodoScreenModel>> completeTodo({@required Todo todo});
+  Future<List<TodoScreenModel>> incompleteTodo({@required Todo todo});
 }
 
 class TodoScreenRepoImpl implements TodoScreenRepo {
@@ -105,5 +109,45 @@ class TodoScreenRepoImpl implements TodoScreenRepo {
   }) {
     CommonRepo.saveObjects(
         key: '${Strings.prefKeyTodos}_$userId', objects: todos);
+  }
+
+  Future<List<TodoScreenModel>> completeTodo({@required Todo todo}) async {
+    List<TodoScreenModel> todoScreens = await fetchSavedScreenTodos();
+    int index = todoScreens.indexWhere((element) => element.todo.id == todo.id);
+    todoScreens.removeAt(index);
+    Todo newTodo = Todo(
+      completed: true,
+      id: todo.id,
+      title: todo.title,
+      userId: todo.userId,
+    );
+    TodoScreenModel todoScreen = todoScreens.elementAt(index);
+    TodoScreenModel newTodoScreen = TodoScreenModel(
+      todo: newTodo,
+      user: todoScreen.user,
+    );
+    todoScreens.insert(index, newTodoScreen);
+    saveScreenTodos(todos: todoScreens);
+    return todoScreens;
+  }
+
+  Future<List<TodoScreenModel>> incompleteTodo({@required Todo todo}) async {
+    List<TodoScreenModel> todoScreens = await fetchSavedScreenTodos();
+    int index = todoScreens.indexWhere((element) => element.todo.id == todo.id);
+    todoScreens.removeAt(index);
+    Todo newTodo = Todo(
+      completed: false,
+      id: todo.id,
+      title: todo.title,
+      userId: todo.userId,
+    );
+    TodoScreenModel todoScreen = todoScreens.elementAt(index);
+    TodoScreenModel newTodoScreen = TodoScreenModel(
+      todo: newTodo,
+      user: todoScreen.user,
+    );
+    todoScreens.insert(index, newTodoScreen);
+    saveScreenTodos(todos: todoScreens);
+    return todoScreens;
   }
 }
