@@ -115,7 +115,15 @@ class TodoPage extends StatelessWidget {
                 child: Center(
                   child: Checkbox(
                     value: todo.completed,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      value == true
+                          ? context
+                              .bloc<TodoBloc>()
+                              .add(CompleteTodo(todo: todo))
+                          : context
+                              .bloc<TodoBloc>()
+                              .add(IncompleteTodo(todo: todo));
+                    },
                   ),
                 ),
               ),
